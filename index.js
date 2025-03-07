@@ -38,11 +38,12 @@ let customers =[
   {id: 3, name: "Miguel", site: "http://example3"},
 ];
 
-
+// lista
 server.get("/customers", (req, res) => {
   return res.json(customers);
 });
 
+//mostrar por id especifico
 server.get("/customers/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const customer = customers.find(item => item.id === id);
@@ -64,6 +65,40 @@ server.post("/customers", (req, res) => {
 
   return res.status(201).json(newCustomer); // Retornar o novo cliente criado
 });
+
+//rota de atualização
+server.put("/customers/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const {name, site} = req.body;
+
+  const index = customers.findIndex(item => item.id === id);
+
+  const status = index >= 0 ? 200 : 404;
+
+  if(index >= 0){
+    customers[index] = {id: parseInt(id), name, site}
+  }
+
+  return res.status(status).json(customers[index]);
+});
+
+//rota de delete 
+server.delete("/customers/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = customers.findIndex(item => item.id === id);
+  const status = index >= 0 ? 200 : 404;
+
+  if (index >= 0) {
+    customers.splice(index, 1); // Corrigido 'splic' para 'splice'
+  }
+
+  return res.status(status).json();
+});
+
+
+
+
+
 
 
 server.listen(3001);
