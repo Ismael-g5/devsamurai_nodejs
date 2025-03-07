@@ -54,13 +54,16 @@ server.get("/customers/:id", (req, res) => {
 
 //create
 server.post("/customers", (req, res) => {
-  const {name, site} = req.body; //cpmteudo json da mensagem
-  const id = customer[customers.lenghth - 1].id + 1;
+  const { name, site } = req.body; // conteúdo JSON da requisição
 
-  const newCustomer = {id, name, site} // dessa forma o json reconhece a igualdade
-  //entre o nome da variavel e o nome do campo presente na tabela json
+  // Corrigido: pegar o último ID corretamente
+  const id = customers.length > 0 ? customers[customers.length - 1].id + 1 : 1;
+
+  const newCustomer = { id, name, site };
   customers.push(newCustomer);
-  return res.status(201).json();
+
+  return res.status(201).json(newCustomer); // Retornar o novo cliente criado
 });
+
 
 server.listen(3001);
