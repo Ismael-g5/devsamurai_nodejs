@@ -114,3 +114,9 @@ arquivo inicial index.js
 
 
 // server.listen(3001);
+
+
+ORM -> Sequelize
+class(customer.js) -> tabela(customer)
+
+migration -> semelhante ao laravel
