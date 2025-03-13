@@ -1,4 +1,4 @@
-
+import Customer from "../models/Customer";
 
 let customers =[
   {id: 1, name: "Ismael", site: "http://example1"},
@@ -11,8 +11,10 @@ let customers =[
 class CustomersController {
 
 
-  index(req, res) {
-    return res.json(customers);
+  async index(req, res) {
+    const data = await Customer.findAll({
+      limit: 1000,
+    });
   }
 
   show(req, res) {
